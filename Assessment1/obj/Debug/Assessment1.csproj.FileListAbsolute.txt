@@ -7,3 +7,5 @@ C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.exe
 C:\Users\s199027\source\repos\Assessment1\Assessment1\obj\Debug\Assessment1.pdb
 C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\GameEvents.txt
 C:\Users\s199027\source\repos\Assessment1\Assessment1\bin\Debug\Statistics.txt
+C:\VisualStudioProjects\GitHubRepos\Assessment1\obj\Debug\Assessment1.exe
+C:\VisualStudioProjects\GitHubRepos\Assessment1\obj\Debug\Assessment1.pdb

@@ -65,16 +65,6 @@ namespace Assessment1
             Console.ReadLine();
             statisticReader.Close();
         }
-        // The winning game over.
-        static void GameOver(int pHealth)
-        {
-            StreamReader statisticReader = new StreamReader("Statistics.txt");
-            string line = statisticReader.ReadLine();
-            Console.WriteLine($"You defeated the monstrosity and managed to defeat a total of {line} opponents and still have {pHealth} HP left!");
-            Console.WriteLine("Thank you for playing!");
-            Console.ReadLine();
-            statisticReader.Close();
-        }
         // Final gameplay loop that makes the player fight a slime and will keep looping until one of them dies.
         static void CombatTurns()
         {
@@ -84,7 +74,7 @@ namespace Assessment1
                 int playerAttackChoice = 0;
                 int slimeAttackChoice = rd.Next(1, 3);
                 // Asking the player what action they want to take, and then executing that action.
-                Console.WriteLine($"The slime has {slime.healthTotal} health points remaining!\r\nYou have {player.healthTotal} health points remaining!\r\nYou see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
+                Console.WriteLine($"\n|  The slime has {slime.healthTotal} health points remaining!\r\n|  You have {player.healthTotal} health points remaining!\r\n|  You see an opening in his defences!\r\nPress 1 to Attack || Press 2 to Pummel || Press 3 to Throw Sand!");
                 Int32.TryParse(Console.ReadLine(), out playerAttackChoice);
                 if ((playerAttackChoice == 1) || (playerAttackChoice == 2) || (playerAttackChoice == 3))
                 {
@@ -94,28 +84,28 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, player.accuracyTotal);
                         if (hitDetection != 5)
                         {
-                            Console.WriteLine($"You hit the monstrosity for {player.damageTotal * (slime.sandEaten + 1)} DMG");
+                            Console.WriteLine($"\n|  You hit the monstrosity for {player.damageTotal * (slime.sandEaten + 1)} DMG");
                             slime.healthTotal -= player.damageTotal * (slime.sandEaten + 1);
                             if (slime.sandEaten == 1)
                             {
-                                Console.WriteLine("You start to deal much more damage than you did against the gladiators");
+                                Console.WriteLine($"\n|  Youdeal much more damage than you did against the gladiators");
                             }
                         }
                         else
                         {
-                            Console.WriteLine("You missed your attack");
+                            Console.WriteLine("\n|  You missed your attack");
                         }
                     }
                     // A pummel attack that avoids the armor of the opponent.
                     if (playerAttackChoice == 2)
                     {
-                        Console.WriteLine("You hit the behemoth for 20 DMG");
+                        Console.WriteLine("\n|  You hit the behemoth for 20 DMG");
                         slime.healthTotal -= 20;
                     }
                     // A throwing sand attack that reduces their accuracy with a special property.
                     if (playerAttackChoice == 3)
                     {
-                        Console.WriteLine("Throwing sand has thickened it self!");
+                        Console.WriteLine("\n|  Throwing sand has thickened the slime!");
                         slime.sandEaten++;
                     }
                 }
@@ -123,17 +113,10 @@ namespace Assessment1
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("You fall flat on your face in front of everyone! Press Enter to continue");
+                    Console.WriteLine("\n|  You fall flat on your face in front of everyone! Press Enter to continue");
                     Console.ForegroundColor = ConsoleColor.Black;
                     player.healthTotal -= 5;
                     Console.ReadLine();
-                }
-                // An instant kill for the player, if the enemy has had sand thrown at him too many times.
-                if (slime.sandEaten == 10)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("The excessive amounts of sand has caused the slime to turn into a type of concrete! \r\n YOU HAVE DEFEATED IT!");
-                    slime.healthTotal = 0;
                 }
                 // If the slime is alive then have them attack the player with a random attack.
                 if (slime.healthTotal > 0)
@@ -144,24 +127,24 @@ namespace Assessment1
                         int hitDetection = rd.Next(1, slime.accuracyTotal);
                         if (hitDetection != 2)
                         {
-                            Console.WriteLine($"It starts to devour you, dealing {slime.damageTotal} DMG!");
+                            Console.WriteLine($"|  It starts to devour you, dealing {slime.damageTotal} DMG!\n");
                             player.healthTotal -= slime.damageTotal;
                         }
                         else
                         {
-                            Console.WriteLine("They missed their attack");
+                            Console.WriteLine("|  They missed their attack\n");
                         }
                     }
                     // The slime deals damage past your defence.
                     if (slimeAttackChoice == 2)
                     {
                         player.healthTotal -= 20;
-                        Console.WriteLine("They try to suffocate you, dealing 20 DMG!");
+                        Console.WriteLine("|  They try to suffocate you, dealing 20 DMG!\n");
                     }
                     // The slime sprays you reducing your accuracy.
                     if (slimeAttackChoice == 3)
                     {
-                        Console.WriteLine("It shoots a volley of slime, impairing your eyesight!");
+                        Console.WriteLine("|  It shoots a volley of slime, impairing your eyesight!\n");
                     }
                 }
             }
@@ -245,9 +228,11 @@ namespace Assessment1
                             Console.WriteLine($"|  {enemyNames[enemyNum + 1]} hits you for {enemies[enemyNum].damageTotal} DMG!\n");
                             Console.ForegroundColor = ConsoleColor.Black;
                             player.healthTotal -= enemies[enemyNum].damageTotal;
+                            Console.ForegroundColor = ConsoleColor.Black;
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine($"|  {enemyNames[enemyNum + 1]} missed their attack\n");
                         }
                     }
@@ -262,7 +247,9 @@ namespace Assessment1
                     // The enemy reduces your accuracy.
                     if (enemyAttackChoice == 3)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"|  {enemyNames[enemyNum + 1]} throws sand in your face\n");
+                        Console.ForegroundColor = ConsoleColor.Black;
                     }
                 }
             }
